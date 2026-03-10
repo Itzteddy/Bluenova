@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bluenova Portfolio - Showcase of our latest projects and case studies">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="main.css">
+  <title>Portfolio - Bluenova Projects</title>
+  <style>
+    .portfolio-hero {
+      margin-top: 80px;
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .portfolio-hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem; animation: slideInUp 0.8s ease-out; }
+    .portfolio-hero p { font-size: 1.2rem; animation: slideInUp 0.8s ease-out 0.2s backwards; opacity: 0.9; }
+    .filter-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin: 3rem 0; }
+    .filter-btn { padding: 10px 24px; border: 2px solid var(--primary); background: transparent; color: var(--primary); border-radius: 50px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+    .filter-btn.active, .filter-btn:hover { background: var(--primary); color: white; transform: translateY(-3px); }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin: 3rem 0; }
+    .portfolio-item { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); animation: slideInUp 0.8s ease-out forwards; opacity: 0; }
+    .portfolio-item:nth-child(1) { animation-delay: 0.1s; }
+    .portfolio-item:nth-child(2) { animation-delay: 0.2s; }
+    .portfolio-item:nth-child(3) { animation-delay: 0.3s; }
+    .portfolio-item:nth-child(4) { animation-delay: 0.4s; }
+    .portfolio-item:nth-child(5) { animation-delay: 0.5s; }
+    .portfolio-item:nth-child(6) { animation-delay: 0.6s; }
+    .portfolio-item:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(0, 102, 255, 0.15); }
+    .portfolio-image { width: 100%; height: 250px; background: linear-gradient(135deg, var(--primary), var(--accent)); display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+    .portfolio-content { padding: 2rem; }
+    .portfolio-category { display: inline-block; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; padding: 5px 15px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; }
+    .portfolio-item h3 { font-size: 1.4rem; margin-bottom: 0.8rem; color: var(--text-dark); }
+    .portfolio-item p { color: #666; line-height: 1.6; margin-bottom: 1.5rem; }
+    .portfolio-tech { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.5rem; }
+    .tech-tag { background: #f0f4ff; color: var(--primary); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 500; }
+    .portfolio-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--primary); text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
+    .portfolio-link:hover { gap: 0.8rem; }
+    header { position: fixed; top: 0; width: 100%; background: rgba(248, 249, 255, 0.95); backdrop-filter: blur(10px); z-index: 1000; box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05); }
+    header nav { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 0; }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--primary); font-weight: 800; font-size: 1.8rem; }
+    .logo-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; }
+    header nav ul { display: flex; list-style: none; gap: 2.5rem; align-items: center; }
+    header nav a:not(.logo) { color: var(--text-dark); text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+    header nav a:not(.logo):hover { color: var(--primary); }
+    .btn { padding: 12px 28px; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease; border: none; cursor: pointer; }
+    .btn-primary { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; box-shadow: 0 10px 30px rgba(0, 102, 255, 0.3); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0, 102, 255, 0.5); }
+    .nav-toggle { display: none; flex-direction: column; gap: 6px; background: none; border: none; cursor: pointer; padding: 5px; }
+    .nav-toggle span { width: 25px; height: 3px; background: var(--primary); border-radius: 2px; transition: all 0.3s ease; }
+    footer { background: var(--dark-bg); color: white; padding: 4rem 0 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 6rem; }
+    .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
+    .footer-section h4 { color: var(--accent); margin-bottom: 1.5rem; }
+    .footer-section ul { list-style: none; }
+    .footer-section ul li { margin-bottom: 0.8rem; }
+    .footer-section a { color: #aaa; text-decoration: none; transition: all 0.3s ease; }
+    .footer-section a:hover { color: var(--accent); }
+    .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #999; }
+    @media (max-width: 768px) { .nav-toggle { display: flex; } header nav ul { display: none; position: absolute; top: 70px; left: 0; right: 0; flex-direction: column; background: white; padding: 2rem; gap: 1rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); } header nav ul.active { display: flex; } .portfolio-hero h1 { font-size: 2rem; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <nav>
+        <a href="index.html" class="logo"><div class="logo-icon"><i class="fas fa-rocket"></i></div><span>Bluenova</span></a>
+        <button class="nav-toggle" id="nav-toggle"><span></span><span></span><span></span></button>
+        <ul id="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#features">Features</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="works.html">Portfolio</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="book.html" class="btn btn-primary">Book Now</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="portfolio-hero">
+    <div class="container">
+      <h1>Our Work Speaks for Itself</h1>
+      <p>Showcasing our latest projects and successful case studies</p>
+    </div>
+  </section>
+
+  <section class="container" style="padding: 3rem 0;">
+    <div class="portfolio-grid">
+      <div class="portfolio-item" data-category="web">
+        <div class="portfolio-image"><i class="fas fa-globe"></i></div>
+        <div class="portfolio-content">
+          <span class="portfolio-category">Web Development</span>
+          <h3>E-Commerce Platform</h3>
+          <p>Complete e-commerce solution with payment integration and real-time analytics.</p>
+          <div class="portfolio-tech"><span class="tech-tag">React</span><span class="tech-tag">Node.js</span><span class="tech-tag">MongoDB</span></div>
+          <a href="#" class="portfolio-link">View Case Study <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="design">
+        <div class="portfolio-image"><i class="fas fa-paint-brush"></i></div>
+        <div class="portfolio-content">
+          <span class="portfolio-category">UI/UX Design</span>
+          <h3>Mobile Banking App</h3>
+          <p>Beautiful banking application with intuitive user interface and smooth interactions.</p>
+          <div class="portfolio-tech"><span class="tech-tag">Flutter</span><span class="tech-tag">Firebase</span></div>
+          <a href="#" class="portfolio-link">View Case Study <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="ai">
+        <div class="portfolio-image"><i class="fas fa-brain"></i></div>
+        <div class="portfolio-content">
+          <span class="portfolio-category">AI Solutions</span>
+          <h3>Intelligent Chatbot</h3>
+          <p>AI-powered customer service with natural language processing and 24/7 availability.</p>
+          <div class="portfolio-tech"><span class="tech-tag">Python</span><span class="tech-tag">TensorFlow</span><span class="tech-tag">GPT</span></div>
+          <a href="#" class="portfolio-link">View Case Study <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="web">
+        <div class="portfolio-image"><i class="fas fa-code"></i></div>
+        <div class="portfolio-content">
+          <span class="portfolio-category">Web Development</span>
+          <h3>SaaS Dashboard</h3>
+          <p>Comprehensive analytics dashboard with real-time data visualization.</p>
+          <div class="portfolio-tech"><span class="tech-tag">Vue.js</span><span class="tech-tag">Chart.js</span><span class="tech-tag">PostgreSQL</span></div>
+          <a href="#" class="portfolio-link">View Case Study <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="design">
+        <div class="portfolio-image"><i class="fas fa-laptop"></i></div>
+        <div class="portfolio-content">
+          <span class="portfolio-category">UI/UX Design</span>
+          <h3>Corporate Website</h3>
+          <p>Modern corporate website with stunning animations and high conversion rates.</p>
+          <div class="portfolio-tech"><span class="tech-tag">HTML5</span><span class="tech-tag">CSS3</span><span class="tech-tag">Design</span></div>
+          <a href="#" class="portfolio-link">View Case Study <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="portfolio-item" data-category="ai">
+        <div class="portfolio-image"><i class="fas fa-database"></i></div>
+        <div class="portfolio-content">
+          <span class="portfolio-category">AI Solutions</span>
+          <h3>ML Prediction Model</h3>
+          <p>Advanced machine learning for predictive analytics and business intelligence.</p>
+          <div class="portfolio-tech"><span class="tech-tag">Python</span><span class="tech-tag">Scikit-learn</span></div>
+          <a href="#" class="portfolio-link">View Case Study <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="logo"><div class="logo-icon"><i class="fas fa-rocket"></i></div><span>Bluenova</span></div>
+          <p style="color: #aaa; margin-top: 1rem;">Transforming ideas into digital reality.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="works.html">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">UI/UX Design</a></li>
+            <li><a href="#">AI Solutions</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <ul style="list-style: none;">
+            <li><a href="mailto:info@bluenova.com">info@bluenova.com</a></li>
+            <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Bluenova. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+    
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+      });
+    });
+  </script>
+  <script src="main.js"></script>
+</body>
+</html>

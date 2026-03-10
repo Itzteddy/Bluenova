@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Book a Consultation - Bluenova">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="main.css">
+  <title>Book Consultation - Bluenova</title>
+  <style>
+    .booking-hero { margin-top: 80px; min-height: 40vh; display: flex; align-items: center; background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); color: white; }
+    .booking-hero h1 { font-size: 3rem; font-weight: 800; }
+    .booking-container { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin: 4rem 0; align-items: start; }
+    .booking-form { background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); animation: slideInLeft 0.8s ease-out; }
+    .booking-benefits { animation: slideInRight 0.8s ease-out; }
+    .benefit-item { background: linear-gradient(135deg, rgba(0, 102, 255, 0.05), rgba(0, 212, 255, 0.05)); padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; border-left: 4px solid var(--primary); animation: slideInUp 0.8s ease-out forwards; opacity: 0; }
+    .benefit-item:nth-child(1) { animation-delay: 0.1s; }
+    .benefit-item:nth-child(2) { animation-delay: 0.2s; }
+    .benefit-item:nth-child(3) { animation-delay: 0.3s; }
+    .benefit-item:nth-child(4) { animation-delay: 0.4s; }
+    .benefit-item h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--primary); }
+    .benefit-item p { color: #666; font-size: 0.9rem; line-height: 1.5; }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 0.8rem; color: var(--text-dark); }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 16px; border: 2px solid #e0e0ff; border-radius: 8px; font-family: inherit; font-size: 1rem; transition: all 0.3s ease; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .btn-submit { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; }
+    .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 102, 255, 0.3); }
+    header { position: fixed; top: 0; width: 100%; background: rgba(248, 249, 255, 0.95); backdrop-filter: blur(10px); z-index: 1000; box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05); }
+    header nav { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 0; }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--primary); font-weight: 800; font-size: 1.8rem; }
+    .logo-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; }
+    header nav ul { display: flex; list-style: none; gap: 2.5rem; align-items: center; }
+    header nav a:not(.logo) { color: var(--text-dark); text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+    header nav a:not(.logo):hover { color: var(--primary); }
+    .btn { padding: 12px 28px; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease; border: none; cursor: pointer; }
+    .btn-primary { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; box-shadow: 0 10px 30px rgba(0, 102, 255, 0.3); }
+    .nav-toggle { display: none; flex-direction: column; gap: 6px; background: none; border: none; cursor: pointer; padding: 5px; }
+    .nav-toggle span { width: 25px; height: 3px; background: var(--primary); border-radius: 2px; transition: all 0.3s ease; }
+    footer { background: var(--dark-bg); color: white; padding: 4rem 0 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 6rem; }
+    .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem; }
+    .footer-section h4 { color: var(--accent); margin-bottom: 1.5rem; }
+    .footer-section ul { list-style: none; }
+    .footer-section ul li { margin-bottom: 0.8rem; }
+    .footer-section a { color: #aaa; text-decoration: none; transition: all 0.3s ease; }
+    .footer-section a:hover { color: var(--accent); }
+    .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #999; }
+    @media (max-width: 768px) { .nav-toggle { display: flex; } header nav ul { display: none; position: absolute; top: 70px; left: 0; right: 0; flex-direction: column; background: white; padding: 2rem; gap: 1rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); } header nav ul.active { display: flex; } .booking-container { grid-template-columns: 1fr; } .booking-hero h1 { font-size: 2rem; } .form-row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <nav>
+        <a href="index.html" class="logo"><div class="logo-icon"><i class="fas fa-rocket"></i></div><span>Bluenova</span></a>
+        <button class="nav-toggle" id="nav-toggle"><span></span><span></span><span></span></button>
+        <ul id="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#features">Features</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="works.html">Portfolio</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="book.html" class="btn btn-primary">Book Now</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="booking-hero">
+    <div class="container">
+      <h1>Book Your Consultation</h1>
+      <p>Schedule a free meeting with our team to discuss your project</p>
+    </div>
+  </section>
+
+  <section class="container" style="padding: 4rem 0;">
+    <div class="booking-container">
+      <form class="booking-form" onsubmit="event.preventDefault(); alert('Thank you for booking! Our team will contact you shortly.');">
+        <h2>Consultation Details</h2>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="fname" required>
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lname" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="company">Company Name</label>
+          <input type="text" id="company" name="company">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="service">Service Needed</label>
+          <select id="service" name="service" required>
+            <option value="">Select a Service</option>
+            <option value="web">Web Development</option>
+            <option value="design">UI/UX Design</option>
+            <option value="ai">AI Solutions</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="date">Preferred Date</label>
+          <input type="date" id="date" name="date" required>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Tell us about your project</label>
+          <textarea id="message" name="message" placeholder="Describe your project needs..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit"><i class="fas fa-check"></i> Confirm Booking</button>
+      </form>
+
+      <div class="booking-benefits">
+        <h2 style="margin-bottom: 2rem;">What You'll Get</h2>
+
+        <div class="benefit-item">
+          <h3><i class="fas fa-clock"></i> 1-Hour Consultation</h3>
+          <p>Dedicated time with our experts to discuss your project goals and requirements.</p>
+        </div>
+
+        <div class="benefit-item">
+          <h3><i class="fas fa-lightbulb"></i> Strategic Planning</h3>
+          <p>We'll outline a roadmap and strategy tailored to your business needs.</p>
+        </div>
+
+        <div class="benefit-item">
+          <h3><i class="fas fa-file"></i> Project Proposal</h3>
+          <p>Receive a detailed proposal with timeline, scope, and pricing estimates.</p>
+        </div>
+
+        <div class="benefit-item">
+          <h3><i class="fas fa-handshake"></i> No Obligations</h3>
+          <p>This is a free consultation with no commitment. Ask us anything!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="logo"><div class="logo-icon"><i class="fas fa-rocket"></i></div><span>Bluenova</span></div>
+          <p style="color: #aaa; margin-top: 1rem;">Transforming ideas into digital reality.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="works.html">Portfolio</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="book.html">Book Now</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">UI/UX Design</a></li>
+            <li><a href="#">AI Solutions</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <ul style="list-style: none;">
+            <li><a href="mailto:info@bluenova.com">info@bluenova.com</a></li>
+            <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Bluenova. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Navigation toggle
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    
+    navToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+    
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+      });
+    });
+  </script>
+  <script src="main.js"></script>
+</body>
+</html>
